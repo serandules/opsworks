@@ -1,7 +1,16 @@
 DEPENDENCIES
+  application_javascript
   nodejs
 
 GRAPH
+  application (5.1.0)
+    poise (~> 2.4)
+    poise-service (~> 1.0)
+  application_javascript (1.0.0)
+    application (~> 5.0)
+    poise (~> 2.0)
+    poise-javascript (~> 1.0)
+    poise-service (~> 1.0)
   apt (4.0.1)
     compat_resource (>= 12.10)
   ark (1.1.0)
@@ -25,6 +34,17 @@ GRAPH
     build-essential (>= 0.0.0)
     homebrew (>= 0.0.0)
     yum-epel (>= 0.0.0)
+  poise (2.7.1)
+  poise-archive (1.2.0)
+    poise (~> 2.6)
+  poise-javascript (1.0.1)
+    poise (~> 2.0)
+    poise-languages (~> 1.2)
+  poise-languages (1.4.0)
+    poise (~> 2.5)
+    poise-archive (~> 1.0)
+  poise-service (1.3.1)
+    poise (~> 2.0)
   seven_zip (2.0.1)
     windows (>= 1.2.2)
   windows (1.44.1)
