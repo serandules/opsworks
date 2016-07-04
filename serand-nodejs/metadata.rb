@@ -6,4 +6,5 @@ description 'Installs/Configures serand-nodejs'
 long_description 'Installs/Configures serand-nodejs'
 version '0.1.0'
 
+depends "build-essential"
 depends "application_javascript"
