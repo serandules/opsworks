@@ -4,6 +4,8 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+include_recipe 'build-essential::default'
+
 app = search(:aws_opsworks_app).first
 app_path = "/srv/#{app['shortname']}"
 
