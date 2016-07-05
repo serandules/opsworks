@@ -17,4 +17,4 @@ git checkout $APP_SOURCE_REVISION
 npm install --production
 
 source .bootstrap
-nodejs server.js
+nohup node server.js > nohup.out &
