@@ -11,8 +11,7 @@ echo $APP_SOURCE_REVISION
 mkdir $APP_PATH
 cd $APP_PATH
 
-git clone $APP_SOURCE_URL current
-cd current
+git clone $APP_SOURCE_URL .
 git checkout $APP_SOURCE_REVISION
 
 npm install --production

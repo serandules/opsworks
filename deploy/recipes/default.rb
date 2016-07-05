@@ -8,12 +8,12 @@ include_recipe 'git'
 include_recipe 'nodejs'
 
 app = search(:aws_opsworks_app).first
-app_path = "/srv/#{app['shortname']}"
+app_path = "/srv/#{app['shortname']}/current"
 
 Chef::Log.info("setting up environment variables")
 template "bootstrap" do
   source "bootstrap.erb"
-  path ".bootstrap"
+  path "#{app_path}/.bootstrap"
   mode "0644"
   owner "root"
   group "root"
