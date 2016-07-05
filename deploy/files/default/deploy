@@ -8,7 +8,9 @@ echo $APP_PATH
 echo $APP_SOURCE_URL
 echo $APP_SOURCE_REVISION
 
+mkdir $APP_PATH
 cd $APP_PATH
+
 git clone $APP_SOURCE_URL current
 cd current
 git checkout $APP_SOURCE_REVISION
