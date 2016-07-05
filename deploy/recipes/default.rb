@@ -17,7 +17,7 @@ template "bootstrap" do
   mode "0644"
   owner "root"
   group "root"
-  variables ({:environment_variables => node[:environment_variables]})
+  variables ({:environment => app['environment']})
 end
 
 Chef::Log.info("deploying application")
