@@ -9,7 +9,7 @@ cookbook_file "/tmp/nvm" do
   mode 0755
 end
 
-execute "touchfile" do
+execute "nvm" do
   user "root"
   cwd "/tmp"
   command "./nvm"

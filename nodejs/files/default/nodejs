@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+apt-get -y update
+apt-get -y install nodejs
+apt-get -y install npm
+
+node --version
+npm --version
