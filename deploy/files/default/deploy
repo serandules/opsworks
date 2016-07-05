@@ -18,4 +18,4 @@ git checkout $APP_SOURCE_REVISION
 npm install --production
 
 source .bootstrap
-nodejs current/server.js
+nodejs server.js
