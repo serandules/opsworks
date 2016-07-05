@@ -8,4 +8,4 @@ version '0.1.0'
 
 depends "build-essential"
 depends "poise-javascript"
-depends "application"
+depends "application_javascript"
