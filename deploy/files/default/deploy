@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+APP_PATH=$1
+APP_SOURCE_URL=$2
+APP_SOURCE_REVISION=$3
+
+echo $APP_PATH
+echo $APP_SOURCE_URL
+echo $APP_SOURCE_REVISION
+
+cd $APP_PATH
+git clone $APP_SOURCE_URL current
+cd current
+git checkout $APP_SOURCE_REVISION
+
+npm install --production
+
+source .bootstrap
+nodejs current/server.js
