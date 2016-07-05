@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+apt-get -y update
+apt-get install -y build-essential libssl-dev
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+
+source /root/.profile
+
+nvm --version
+
