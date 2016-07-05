@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-<% node[:environment].each do |name,value| -%>
+<% @environment.each do |name,value| -%>
 export <%= name %>=<%= value %>
 <% end -%>
