@@ -1,0 +1,4 @@
+# serand-component
+
+TODO: Enter the cookbook description here.
+
