@@ -24,6 +24,10 @@ application app_path do
   end
 end
 
+node_package 'component' do
+  version '1.1.0'
+end
+
 bash 'build-components' do
   cwd ::File.dirname(app_path)
   code <<-EOH
