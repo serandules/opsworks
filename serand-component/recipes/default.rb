@@ -18,16 +18,21 @@ package "git" do
 end
 
 application app_path do
+  javascript "4"
   git app_path do
     repository app["app_source"]["url"]
     revision app["app_source"]["revision"]
   end
 end
 
+node_package 'component' do
+  javascript "4"
+  version '1.1.0'
+end
+
 bash 'build-components' do
   cwd ::File.dirname(app_path)
   code <<-EOH
-    npm install -g component@1.1.0
     component build
     ls -alh build
     EOH
