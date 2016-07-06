@@ -4,8 +4,8 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-include_recipe 'git'
 include_recipe 'nodejs'
+include_recipe 'pm2'
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/#{app['shortname']}/current"
@@ -29,5 +29,5 @@ end
 execute "deploy" do
   user "root"
   cwd "/tmp"
-  command "./deploy #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+  command "./deploy #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
 end

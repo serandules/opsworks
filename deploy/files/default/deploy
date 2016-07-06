@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-APP_PATH=$1
-APP_SOURCE_URL=$2
-APP_SOURCE_REVISION=$3
+APP_NAME=$1
+APP_PATH=$2
+APP_SOURCE_URL=$3
+APP_SOURCE_REVISION=$4
 
-pkill node
+pm2 delete $APP_NAME
 
 mkdir $APP_PATH
 cd $APP_PATH
@@ -15,4 +16,7 @@ git checkout $APP_SOURCE_REVISION
 npm install --production
 
 source .bootstrap
-nohup node server.js > nohup.out &
+
+pm2 start index.js -i max --name $APP_NAME
+
+pm2 save
