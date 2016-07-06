@@ -19,4 +19,4 @@ source .bootstrap
 
 pm2 start index.js -i max --name $APP_NAME
 
-pm2 save
+# pm2 save
