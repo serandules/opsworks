@@ -5,17 +5,17 @@ APP_PATH=$2
 APP_SOURCE_URL=$3
 APP_SOURCE_REVISION=$4
 
-pm2 delete $APP_NAME
+pm2 delete ${APP_NAME}
 
-cd $APP_PATH
+cd ${APP_PATH}
+source .bootstrap
 
-git clone $APP_SOURCE_URL .
-git checkout $APP_SOURCE_REVISION
+git clone ${APP_SOURCE_URL} current
+cd current
+git checkout ${APP_SOURCE_REVISION}
 
 npm install --production
 
-source .bootstrap
-
-pm2 start index.js -i max --name $APP_NAME
+pm2 start index.js -i max --name ${APP_NAME}
 
 # pm2 save

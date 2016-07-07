@@ -8,7 +8,7 @@ include_recipe 'nodejs'
 include_recipe 'component'
 
 app = search(:aws_opsworks_app).first
-app_path = "/srv/#{app['shortname']}/current"
+app_path = "/srv/#{app['shortname']}"
 scripts_path = "/tmp/deploy"
 
 directory app_path do
