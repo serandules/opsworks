@@ -9,6 +9,23 @@ include_recipe 'pm2'
 
 app = search(:aws_opsworks_app).first
 app_path = "/srv/#{app['shortname']}/current"
+scripts_path = "/tmp/deploy"
+
+directory app_path do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+  recursive true
+end
+
+directory scripts_path do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+  recursive true
+end
 
 Chef::Log.info("setting up environment variables")
 template "bootstrap" do
