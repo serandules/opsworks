@@ -15,7 +15,7 @@ cd current
 git checkout ${APP_SOURCE_REVISION}
 
 RELEASE=`node -p "require('node-uuid').v4()"`
-PREFIX="serand/$RELEASE/"
+PREFIX="serand/$RELEASE"
 
 component build --out serand --name serand --copy --prefix ${PREFIX}
 
