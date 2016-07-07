@@ -7,7 +7,6 @@ APP_SOURCE_REVISION=$4
 
 pm2 delete $APP_NAME
 
-mkdir $APP_PATH
 cd $APP_PATH
 
 git clone $APP_SOURCE_URL .
