@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-npm install -g component
+npm install -g component@1.1.0
 
 component --version

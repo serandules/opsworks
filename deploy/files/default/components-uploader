@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var async = require('async');
+var fs = require('fs');
+var util = require('util');
+var path = require('path');
+var AWS = require('aws-sdk');
+
+var AWS_S3_BUCKET = process.env.AWS_S3_BUCKET || 'cdn.serandives.com';
+var AWS_REGION = process.env.AWS_REGION || 'ap-southeast-1';
+
+var dir = process.argv[2];
+var prefix = process.argv[3];
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_KEY,
+    secretAccessKey: process.env.AWS_SECRET,
+    region: AWS_REGION
+});
+
+var s3 = new AWS.S3();
+
+var upload = function (dir, parent, done) {
+    fs.lstat(dir, function (err, stats) {
+        if (err) {
+            return done(err);
+        }
+        if (stats.isFile()) {
+            // upload file
+            console.log('uploading src: %s to: %s', dir, parent);
+            s3.upload({
+                Bucket: AWS_S3_BUCKET,
+                Key: parent,
+                Body: fs.createReadStream(dir)
+            }, done);
+            return;
+        }
+        // create s3 directory
+        fs.readdir(dir, function (err, files) {
+            if (err) {
+                return done(err);
+            }
+            async.each(files, function (file, uploaded) {
+                upload(path.join(dir, file), parent + '/' + path.basename(file), uploaded);
+            }, done);
+        });
+    });
+};
+
+upload(dir, prefix, function (err) {
+    if (err) {
+        console.error(err);
+        return process.exit(1);
+    }
+});

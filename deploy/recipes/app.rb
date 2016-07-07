@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: deploy
-# Recipe:: default
+# Recipe:: app
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
@@ -21,13 +21,13 @@ template "bootstrap" do
 end
 
 Chef::Log.info("deploying application")
-cookbook_file "/tmp/deploy" do
-  source "deploy"
+cookbook_file "/tmp/deploy/app" do
+  source "app"
   mode 0755
 end
 
-execute "deploy" do
+execute "app" do
   user "root"
-  cwd "/tmp"
-  command "./deploy #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+  cwd "/tmp/deploy"
+  command "./app #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
 end

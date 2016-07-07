@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+APP_NAME=$1
+APP_PATH=$2
+APP_SOURCE_URL=$3
+APP_SOURCE_REVISION=$4
+
+mkdir $APP_PATH
+cd $APP_PATH
+
+git clone $APP_SOURCE_URL .
+git checkout $APP_SOURCE_REVISION
+
+npm install aws-sdk@2.4.5
+npm install async@2.0.0-rc.6
+npm install node-uuid@1.4.7
+
+source .bootstrap
+
+RELEASE=`node -p "require('node-uuid').v4()"`
+PREFIX="serand/$RELEASE/"
+
+component build --out serand --name serand --copy --prefix $PREFIX
+
+node components-uploader "$APP_PATH/serand" $PREFIX
+
+# pm2 save
