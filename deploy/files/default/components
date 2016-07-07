@@ -25,6 +25,6 @@ npm install aws-sdk@2.4.5
 npm install async@2.0.0-rc.6
 npm install node-uuid@1.4.7
 
-node components-uploader "$APP_PATH/serand" ${PREFIX}
+node components-uploader "$APP_PATH/current/serand" ${PREFIX}
 
 # pm2 save
