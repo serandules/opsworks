@@ -4,6 +4,7 @@ APP_NAME=$1
 APP_PATH=$2
 APP_SOURCE_URL=$3
 APP_SOURCE_REVISION=$4
+APP_SOURCE_REVISION=${APP_SOURCE_REVISION:=master}
 
 CURRENT=`pwd`
 
@@ -25,6 +26,6 @@ npm install aws-sdk@2.4.5
 npm install async@2.0.0-rc.6
 npm install node-uuid@1.4.7
 
-node components-uploader "$APP_PATH/current/serand" ${PREFIX}
+node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX}
 
 # pm2 save
