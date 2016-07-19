@@ -11,6 +11,8 @@ CURRENT=`pwd`
 cd ${APP_PATH}
 source .bootstrap
 
+rm -rf current
+
 git clone ${APP_SOURCE_URL} current
 cd current
 git checkout ${APP_SOURCE_REVISION}
