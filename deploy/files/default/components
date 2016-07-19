@@ -14,8 +14,8 @@ git clone ${APP_SOURCE_URL} current
 cd current
 git checkout ${APP_SOURCE_REVISION}
 
-RELEASE=`node -p "require('node-uuid').v4()"`
-PREFIX="serand/$RELEASE"
+RELEASE=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
+PREFIX="$APP_NAME/$RELEASE"
 
 component build --out serand --name serand --copy --prefix ${PREFIX}
 
