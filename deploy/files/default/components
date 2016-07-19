@@ -11,7 +11,7 @@ CURRENT=`pwd`
 cd ${APP_PATH}
 source .bootstrap
 
-rm -rf current
+rm -rf current || true
 
 git clone ${APP_SOURCE_URL} current
 cd current
@@ -20,7 +20,7 @@ git checkout ${APP_SOURCE_REVISION}
 RELEASE=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
 PREFIX="$APP_NAME/$RELEASE"
 
-component build --out serand --name serand --copy --prefix ${PREFIX}
+component build --out ${APP_NAME} --name index --copy --prefix ${PREFIX}
 
 cd ${CURRENT}
 
