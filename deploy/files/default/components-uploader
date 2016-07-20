@@ -30,7 +30,8 @@ var upload = function (dir, parent, done) {
             s3.upload({
                 Bucket: AWS_S3_BUCKET,
                 Key: parent,
-                Body: fs.createReadStream(dir)
+                Body: fs.createReadStream(dir),
+                ACL: 'public-read'
             }, done);
             return;
         }
