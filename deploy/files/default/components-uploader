@@ -4,6 +4,7 @@ var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var AWS = require('aws-sdk');
+var mime = require('mime-types')
 
 var AWS_S3_BUCKET = process.env.AWS_S3_BUCKET || 'cdn.serandives.com';
 var AWS_REGION = process.env.AWS_REGION || 'ap-southeast-1';
@@ -31,7 +32,8 @@ var upload = function (dir, parent, done) {
                 Bucket: AWS_S3_BUCKET,
                 Key: parent,
                 Body: fs.createReadStream(dir),
-                ACL: 'public-read'
+                ACL: 'public-read',
+                ContentType: mime.lookup(dir) || 'application/octet-stream'
             }, done);
             return;
         }

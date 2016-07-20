@@ -27,6 +27,7 @@ cd ${CURRENT}
 npm install aws-sdk@2.4.5
 npm install async@2.0.0-rc.6
 npm install node-uuid@1.4.7
+npm install mime-types@2.1.11
 
 node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX}
 
