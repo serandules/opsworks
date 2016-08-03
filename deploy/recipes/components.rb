@@ -9,9 +9,11 @@ include_recipe 'component'
 
 search(:aws_opsworks_app).each do |app|
   deploy = app['environment']['DEPLOY']
-  next if deploy != 'true'
+  next if deploy != 'false'
   app_path = "/srv/#{app['shortname']}"
   scripts_path = '/tmp/deploy'
+
+  Chef::Log.info("********** deploying app '#{app['shortname']}' at '#{app_path}' **********")
 
   directory app_path do
     owner 'root'
@@ -29,17 +31,17 @@ search(:aws_opsworks_app).each do |app|
     recursive true
   end
 
-  Chef::Log.info('setting up environment variables')
+  Chef::Log.info('********** setting up environment variables **********')
   template 'bootstrap' do
     source 'bootstrap.erb'
-    path '#{app_path}/.bootstrap'
+    path "#{app_path}/.bootstrap"
     mode '0644'
     owner 'root'
     group 'root'
     variables ({:environment => app['environment']})
   end
 
-  Chef::Log.info('deploying components')
+  Chef::Log.info('********** deploying components **********')
   cookbook_file '/tmp/deploy/components' do
     source 'components'
     mode 0755
