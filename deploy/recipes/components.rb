@@ -9,7 +9,7 @@ include_recipe 'component'
 
 search(:aws_opsworks_app).each do |app|
   deploy = app['environment']['DEPLOY']
-  next if deploy != 'false'
+  next if deploy != 'true'
   app_path = "/srv/#{app['shortname']}"
   scripts_path = '/tmp/deploy'
 
