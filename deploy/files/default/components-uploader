@@ -4,7 +4,7 @@ var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var AWS = require('aws-sdk');
-var mime = require('mime-types')
+var mime = require('mime-types');
 
 var AWS_S3_BUCKET = process.env.AWS_S3_BUCKET || 'cdn.serandives.com';
 var AWS_REGION = process.env.AWS_REGION || 'ap-southeast-1';

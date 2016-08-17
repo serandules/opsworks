@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+var util = require('util');
+var async = require('async');
+var mongoose = require('mongoose');
+var models = require('./models');
+
+var MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI);
+
+var find = function (name, done) {
+    models.Release.find({
+        type: 'serandomps',
+        name: name
+    }).limit(1).sort({_id: -1}).exec(function (err, release) {
+        if (err) {
+            return done(err);
+        }
+        done(null, util.format('exports %s_CLIENT=%s', release.name.toUpperCase(), release.version));
+    });
+};
+
+var code = '\n';
+var clientPrefix = 'CLIENT_';
+
+async.each(Object.keys(process.env), function (name, found) {
+    if (name.indexOf(clientPrefix) !== 0) {
+        return found();
+    }
+    var version = process.env[name];
+    if (version) {
+        return found();
+    }
+    var client = name.substring(clientPrefix.length);
+    find(client, function (err, release) {
+        if (err) {
+            return found(err);
+        }
+        code += '\n' + release;
+        console.log(code);
+    });
+}, function (err) {
+    if (err) {
+        console.error(err);
+        return process.exit(1);
+    }
+});

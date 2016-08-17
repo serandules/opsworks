@@ -17,8 +17,9 @@ git clone ${APP_SOURCE_URL} current
 cd current
 git checkout ${APP_SOURCE_REVISION}
 
-RELEASE=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
-PREFIX="$APP_NAME/$RELEASE"
+VERSION=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
+VERSION=`date +%s`
+PREFIX="$APP_NAME/$VERSION"
 
 component build --out ${APP_NAME} --name index --copy --prefix ${PREFIX}
 
@@ -28,7 +29,9 @@ npm install aws-sdk@2.4.5
 npm install async@2.0.0-rc.6
 npm install node-uuid@1.4.7
 npm install mime-types@2.1.11
+npm install mongoose@4.5.9
 
 node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX}
+node releaser ${APP_NAME} ${VERSION} ${APP_SOURCE_REVISION}
 
 # pm2 save

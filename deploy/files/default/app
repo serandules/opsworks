@@ -7,6 +7,14 @@ APP_SOURCE_REVISION=$4
 
 pm2 delete ${APP_NAME}
 
+# loading releases
+RELEASES=`node release-find`
+if [ $? -ne 0 ]; then
+   echo "error finding releases: ${RELEASES}" 1>&2
+   exit 1
+fi
+cat ${RELEASES} >> .bootstrap
+
 cd ${APP_PATH}
 source .bootstrap
 
