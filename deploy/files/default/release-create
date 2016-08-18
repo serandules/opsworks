@@ -20,4 +20,5 @@ models.Release.create({
         console.error(err);
         return process.exit(1);
     }
+    process.exit(0);
 });
