@@ -43,6 +43,11 @@ cookbook_file "/tmp/deploy/app" do
   mode 0755
 end
 
+cookbook_file '/tmp/deploy/models' do
+  source 'models'
+  mode 0755
+end
+
 cookbook_file '/tmp/deploy/release-find' do
   source 'release-find'
   mode 0755

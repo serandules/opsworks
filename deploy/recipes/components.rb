@@ -52,6 +52,11 @@ search(:aws_opsworks_app).each do |app|
     mode 0755
   end
 
+  cookbook_file '/tmp/deploy/models' do
+    source 'models'
+    mode 0755
+  end
+
   cookbook_file '/tmp/deploy/release-create' do
     source 'release-create'
     mode 0755
