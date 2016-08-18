@@ -8,6 +8,9 @@ APP_SOURCE_REVISION=$4
 pm2 delete ${APP_NAME}
 
 # loading releases
+npm install async@2.0.0-rc.6
+npm install mongoose@4.5.9
+
 RELEASES=`node release-find`
 if [ $? -ne 0 ]; then
    echo "error finding releases: ${RELEASES}" 1>&2
