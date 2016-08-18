@@ -52,6 +52,11 @@ search(:aws_opsworks_app).each do |app|
     mode 0755
   end
 
+  cookbook_file '/tmp/deploy/components-create' do
+    source 'components-create'
+    mode 0755
+  end
+
   execute 'components' do
     user 'root'
     cwd '/tmp/deploy'

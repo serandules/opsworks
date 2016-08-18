@@ -43,6 +43,11 @@ cookbook_file "/tmp/deploy/app" do
   mode 0755
 end
 
+cookbook_file '/tmp/deploy/components-find' do
+  source 'components-find'
+  mode 0755
+end
+
 execute "app" do
   user "root"
   cwd "/tmp/deploy"
