@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ${APP_PATH}
-cat ${RELEASES} >> .bootstrap
+echo ${RELEASES} >> .bootstrap
 source .bootstrap
 
 rm -rf current || true
