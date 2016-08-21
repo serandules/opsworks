@@ -16,9 +16,9 @@ if [ $? -ne 0 ]; then
    echo "error finding releases: ${RELEASES}" 1>&2
    exit 1
 fi
-cat ${RELEASES} >> .bootstrap
 
 cd ${APP_PATH}
+cat ${RELEASES} >> .bootstrap
 source .bootstrap
 
 rm -rf current || true
