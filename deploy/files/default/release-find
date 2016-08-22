@@ -20,7 +20,7 @@ var find = function (name, done) {
             return done(new Error(util.format('cannot find a release for client: %s', name)));
         }
         var release = releases[0];
-        done(null, util.format('exports %s_CLIENT=%s', release.name.toUpperCase(), release.version));
+        done(null, util.format('export %s_CLIENT=%s', release.name.toUpperCase(), release.version));
     });
 };
 
