@@ -56,6 +56,6 @@ end
 execute "app" do
   user "root"
   cwd "/tmp/deploy"
-  command "./app #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}",
+  command "./app #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
   live_stream true
 end
