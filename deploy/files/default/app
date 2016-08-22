@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
 fi
 
 cd ${APP_PATH}
-echo "================ updating releases ================"
+echo "================ updating releases ================" >> .other
 echo -e ${RELEASES} >> .bootstrap
 echo -e ${RELEASES} >> .other
 echo ${RELEASES}

@@ -33,7 +33,7 @@ async.each(Object.keys(process.env), function (name, found) {
         return found();
     }
     var version = process.env[name];
-    if (version) {
+    if (version !== 'master') {
         return found();
     }
     var client = name.substring(clientPrefix.length).toLowerCase();
