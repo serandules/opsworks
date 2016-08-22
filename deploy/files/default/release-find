@@ -27,8 +27,9 @@ var find = function (name, done) {
 };
 
 var code = [];
-
+console.log('# starting')
 async.each(Object.keys(process.env), function (name, found) {
+    console.log('# env %s:%s', name, process.env[name])
     if (name.indexOf(clientPrefix) !== 0) {
         return found();
     }
