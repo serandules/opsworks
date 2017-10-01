@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
 
+echo 'starting' >> /tmp/comps
+
 APP_NAME=$1
 APP_PATH=$2
 APP_SOURCE_URL=$3
 APP_SOURCE_REVISION=$4
 APP_SOURCE_REVISION=${APP_SOURCE_REVISION:=master}
 
+echo ${APP_NAME} >> /tmp/comps
+echo ${APP_PATH} >> /tmp/comps
+echo ${APP_SOURCE_URL} >> /tmp/comps
+echo ${APP_SOURCE_REVISION} >> /tmp/comps
+
 CURRENT=`pwd`
+
+echo ${CURRENT} >> /tmp/comps
 
 cd ${APP_PATH}
 source .bootstrap
 
 rm -rf current || true
 
-git clone ${APP_SOURCE_URL} current
+git clone ${APP_SOURCE_URL} current >> /tmp/comps 2>&1
 cd current
 git checkout ${APP_SOURCE_REVISION}
 
@@ -21,7 +30,7 @@ VERSION=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
 VERSION=`date +%s`
 PREFIX="$APP_NAME/$VERSION"
 
-component build --out ${APP_NAME} --name index --copy --prefix ${PREFIX}
+component build --out ${APP_NAME} --name index --copy --prefix ${PREFIX} >> /tmp/comps 2>&1
 
 cd ${CURRENT}
 
@@ -31,7 +40,7 @@ npm install node-uuid@1.4.7
 npm install mime-types@2.1.11
 npm install mongoose@4.5.9
 
-node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX}
-node release-create ${APP_NAME} ${VERSION} ${APP_SOURCE_REVISION}
+node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX} >> /tmp/comps 2>&1
+node release-create ${APP_NAME} ${VERSION} ${APP_SOURCE_REVISION} >> /tmp/comps 2>&1
 
 # pm2 save
