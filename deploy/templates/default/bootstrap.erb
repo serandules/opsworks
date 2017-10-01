@@ -3,5 +3,5 @@
 export PORT=80
 export NODE_ENV=production
 <% @environment.each do |name,value| -%>
-export <%= name %>=<%= value %>
+export <%= name %>="<%= value %>"
 <% end -%>
