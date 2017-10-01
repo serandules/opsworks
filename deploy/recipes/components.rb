@@ -68,5 +68,6 @@ search(:aws_opsworks_app).each do |app|
     user 'root'
     cwd '/tmp/components'
     command "./components #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+    live_stream true
   end
 end
