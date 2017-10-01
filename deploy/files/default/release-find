@@ -6,7 +6,7 @@ var models = require('./models');
 
 var MONGODB_URI = process.env.MONGODB_URI;
 
-var clientPrefix = 'CLIENT_';
+var clientPrefix = 'INDEX_';
 
 mongoose.connect(MONGODB_URI);
 
@@ -22,7 +22,7 @@ var find = function (name, done) {
             return done(new Error(util.format('cannot find a release for client: %s', name)));
         }
         var release = releases[0];
-        done(null, util.format('export %s%s_INDEX=%s', clientPrefix, release.name.toUpperCase(), release.version));
+        done(null, util.format('export %s%s=%s', clientPrefix, release.name.toUpperCase(), release.version));
     });
 };
 
