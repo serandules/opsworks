@@ -37,15 +37,37 @@ var upload = function (dir, parent, done) {
             }, done);
             return;
         }
-        // create s3 directory
-        fs.readdir(dir, function (err, files) {
-            if (err) {
-                return done(err);
-            }
-            async.each(files, function (file, uploaded) {
-                upload(path.join(dir, file), parent + '/' + path.basename(file), uploaded);
-            }, done);
-        });
+        if (stats.isDirectory()) {
+            // create s3 directory
+            fs.readdir(dir, function (err, files) {
+                if (err) {
+                    return done(err);
+                }
+                async.each(files, function (file, uploaded) {
+                    upload(path.join(dir, file), parent + '/' + path.basename(file), uploaded);
+                }, done);
+            });
+            return;
+        }
+        if (stats.isSymbolicLink()) {
+            fs.readdir(dir, function (err, files) {
+                if (err) {
+                    // upload file
+                    console.log('uploading src: %s to: %s', dir, parent);
+                    s3.upload({
+                        Bucket: AWS_S3_BUCKET,
+                        Key: parent,
+                        Body: fs.createReadStream(dir),
+                        ACL: 'public-read',
+                        ContentType: mime.lookup(dir) || 'application/octet-stream'
+                    }, done);
+                    return;
+                }
+                async.each(files, function (file, uploaded) {
+                    upload(path.join(dir, file), parent + '/' + path.basename(file), uploaded);
+                }, done);
+            })
+        }
     });
 };
 
