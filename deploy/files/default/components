@@ -30,7 +30,7 @@ VERSION=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
 VERSION=`date +%s`
 PREFIX="$APP_NAME/$VERSION"
 
-component build --out ${APP_NAME} --name index --copy --prefix ${PREFIX} >> /tmp/comps 2>&1
+component build --out ${APP_NAME} --name index --prefix ${PREFIX} >> /tmp/comps 2>&1
 
 cd ${CURRENT}
 

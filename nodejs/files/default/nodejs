@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-apt-get -y update
-apt-get -y install nodejs
-apt-get -y install npm
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+apt-get install -y nodejs
 
-ln -s `which nodejs` /usr/bin/node
+# ln -s `which nodejs` /usr/bin/node
 
 node --version
 npm --version
