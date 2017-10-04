@@ -26,6 +26,7 @@ cd current
 git checkout ${APP_SOURCE_REVISION}
 
 npm install --production
+node install.js
 
 pm2 describe ${APP_NAME} > /dev/null
 RUNNING=$?
