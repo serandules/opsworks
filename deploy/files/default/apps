@@ -5,8 +5,6 @@ APP_PATH=$2
 APP_SOURCE_URL=$3
 APP_SOURCE_REVISION=$4
 
-pm2 delete ${APP_NAME}
-
 # loading releases
 npm install async@2.0.0-rc.6
 npm install mongoose@4.5.9
@@ -29,6 +27,11 @@ git checkout ${APP_SOURCE_REVISION}
 
 npm install --production
 
-pm2 start server.js -i max --name ${APP_NAME}
+pm2 describe ${APP_NAME} > /dev/null
+RUNNING=$?
 
-# pm2 save
+if [ "${RUNNING}" -ne 0 ]; then
+  pm2 start server.js -i max --name ${APP_NAME}
+else
+  pm2 reload ${APP_NAME}
+fi

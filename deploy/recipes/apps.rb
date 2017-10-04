@@ -57,10 +57,10 @@ search(:aws_opsworks_app).each do |app|
     mode 0755
   end
 
-  execute "app" do
+  execute "apps" do
     user "root"
     cwd "/tmp/apps"
-    command "./app #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+    command "./apps #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
     environment app['environment']
     live_stream true
   end
