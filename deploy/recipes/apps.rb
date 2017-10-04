@@ -42,8 +42,8 @@ search(:aws_opsworks_app).each do |app|
   end
 
   Chef::Log.info("deploying application")
-  cookbook_file "/tmp/apps/app" do
-    source "app"
+  cookbook_file "/tmp/apps/apps" do
+    source "apps"
     mode 0755
   end
 
