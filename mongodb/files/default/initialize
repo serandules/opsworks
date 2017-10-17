@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "initializing replica set"
+
+mongo --eval "rs.initiate({_id : 'serandives', members: [{_id : 0, host: '`hostname`' }]})"
