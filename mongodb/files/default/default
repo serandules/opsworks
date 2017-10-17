@@ -13,5 +13,3 @@ chmod -R go+w /vol/mongodb
 service mongod start
 
 mongo --version
-
-mongo --eval "rs.initiate({_id : 'serandives', members: [{_id : 0, host: '`hostname`' }]})"
