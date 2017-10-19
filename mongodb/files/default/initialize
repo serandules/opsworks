@@ -2,4 +2,4 @@
 
 echo "initializing replica set"
 
-mongo --quite --eval "rs.initiate({_id : 'serandives', members: [{_id : 0, host: '`hostname`' }]})"
+mongo --eval "rs.initiate({_id : 'serandives', members: [{_id : 0, host: '`hostname`' }]})"
