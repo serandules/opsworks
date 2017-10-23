@@ -41,9 +41,9 @@ search(:aws_opsworks_app).each do |app|
     variables ({:environment => app['environment']})
   end
 
-  Chef::Log.info("deploying clients")
-  cookbook_file "/tmp/deploy/clients" do
-    source "clients"
+  Chef::Log.info("restarting application")
+  cookbook_file "/tmp/deploy/restart" do
+    source "restart"
     mode 0755
   end
 
@@ -57,10 +57,10 @@ search(:aws_opsworks_app).each do |app|
     mode 0755
   end
 
-  execute "clients" do
+  execute "restart" do
     user "root"
     cwd "/tmp/deploy"
-    command "./clients #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+    command "./restart #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
     environment app['environment']
     live_stream true
   end
