@@ -13,7 +13,7 @@ search(:aws_opsworks_app).each do |app|
   deploy = app['environment']['DEPLOY']
   next if deploy != 'true'
   app_path = "/srv/#{app['shortname']}"
-  scripts_path = "/opts/deploy"
+  scripts_path = "/tmp/deploy"
 
   directory app_path do
     owner 'root'
@@ -42,24 +42,24 @@ search(:aws_opsworks_app).each do |app|
   end
 
   Chef::Log.info("deploying application")
-  cookbook_file "/opts/deploy/apps" do
+  cookbook_file "/tmp/deploy/apps" do
     source "apps"
     mode 0755
   end
 
-  cookbook_file '/opts/deploy/models' do
+  cookbook_file '/tmp/deploy/models' do
     source 'models'
     mode 0755
   end
 
-  cookbook_file '/opts/deploy/release-find' do
+  cookbook_file '/tmp/deploy/release-find' do
     source 'release-find'
     mode 0755
   end
 
   execute "apps" do
     user "root"
-    cwd "/opts/deploy"
+    cwd "/tmp/deploy"
     command "./apps #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
     environment app['environment']
     live_stream true

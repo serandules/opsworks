@@ -13,7 +13,7 @@ search(:aws_opsworks_app).each do |app|
   deploy = app['environment']['DEPLOY']
   next if deploy != 'true'
   app_path = "/srv/#{app['shortname']}"
-  scripts_path = '/opts/deploy'
+  scripts_path = '/tmp/deploy'
 
   Chef::Log.info("********** deploying app '#{app['shortname']}' at '#{app_path}' **********")
 
@@ -44,29 +44,29 @@ search(:aws_opsworks_app).each do |app|
   end
 
   Chef::Log.info('********** deploying components **********')
-  cookbook_file '/opts/deploy/components' do
+  cookbook_file '/tmp/deploy/components' do
     source 'components'
     mode 0755
   end
 
-  cookbook_file '/opts/deploy/components-uploader' do
+  cookbook_file '/tmp/deploy/components-uploader' do
     source 'components-uploader'
     mode 0755
   end
 
-  cookbook_file '/opts/deploy/models' do
+  cookbook_file '/tmp/deploy/models' do
     source 'models'
     mode 0755
   end
 
-  cookbook_file '/opts/deploy/release-create' do
+  cookbook_file '/tmp/deploy/release-create' do
     source 'release-create'
     mode 0755
   end
 
   execute 'components' do
     user 'root'
-    cwd '/opts/deploy'
+    cwd '/tmp/deploy'
     command "./components #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
     live_stream true
   end
