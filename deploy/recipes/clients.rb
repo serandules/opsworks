@@ -41,7 +41,7 @@ search(:aws_opsworks_app).each do |app|
     variables ({:environment => app['environment']})
   end
 
-  Chef::Log.info("deploying application")
+  Chef::Log.info("deploying clients")
   cookbook_file "/tmp/deploy/clients" do
     source "clients"
     mode 0755
