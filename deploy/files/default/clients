@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+APP_NAME=$1
+APP_PATH=$2
+APP_SOURCE_URL=$3
+APP_SOURCE_REVISION=$4
+
+# loading releases
+npm install async@2.0.0-rc.6
+npm install mongoose@4.5.9
+
+RELEASES=`node release-find`
+if [ $? -ne 0 ]; then
+   echo "error finding releases: ${RELEASES}" 1>&2
+   exit 1
+fi
+
+cd ${APP_PATH}
+echo -e ${RELEASES} >> .bootstrap
+source .bootstrap
+
+cd current
+
+pm2 describe ${APP_NAME} > /dev/null
+RUNNING=$?
+
+if [ "${RUNNING}" -ne 0 ]; then
+  pm2 start server.js -i max --name ${APP_NAME}
+else
+  pm2 reload ${APP_NAME}
+fi

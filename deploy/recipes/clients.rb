@@ -42,8 +42,8 @@ search(:aws_opsworks_app).each do |app|
   end
 
   Chef::Log.info("deploying application")
-  cookbook_file "/opts/deploy/apps" do
-    source "apps"
+  cookbook_file "/opts/deploy/clients" do
+    source "clients"
     mode 0755
   end
 
@@ -57,10 +57,10 @@ search(:aws_opsworks_app).each do |app|
     mode 0755
   end
 
-  execute "apps" do
+  execute "clients" do
     user "root"
     cwd "/opts/deploy"
-    command "./apps #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
+    command "./clients #{app['shortname']} #{app_path} #{app['app_source']['url']} #{app['app_source']['revision']}"
     environment app['environment']
     live_stream true
   end
