@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+AWS_KEY=$1
+AWS_SECRET=$2
+MONGODB_USERNAME=$3
+MONGODB_PASSWORD=$4
+BUCKET="serandives.com"
+REPLICA_SET="serandives"
+
+echo "installing mongodb"
+
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+
+apt-get update
+apt-get install -y mongodb-org
+
+npm install aws-sdk@2.173.0
+
+node copy-s3-file ${AWS_KEY} ${AWS_SECRET} ${BUCKET} "ssl/ca/serandivesCA.crt" "/etc/ssl/serandivesCA.crt"
+node copy-s3-file ${AWS_KEY} ${AWS_SECRET} ${BUCKET} "ssl/${HOSTNAME}/${HOSTNAME}.pem" "/etc/ssl/server.pem"
+
+chown -R mongodb:mongodb /etc/ssl/serandivesCA.crt
+chown -R mongodb:mongodb /etc/ssl/server.pem
+
+chown -R mongodb:mongodb /vol/mongodb
+chmod -R go+w /vol/mongodb

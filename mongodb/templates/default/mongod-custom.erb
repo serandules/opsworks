@@ -25,11 +25,20 @@ systemLog:
 net:
   port: 27017
 #  bindIp: 127.0.0.1
+  ssl:
+    mode: requireSSL
+    PEMKeyFile: /etc/ssl/server.pem
+    CAFile: /etc/ssl/serandivesCA.crt
+    clusterFile: /etc/ssl/server.pem
 
 
-#processManagement:
+# how the process runs
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
 
-#security:
+security:
+  authorization: enabled
+  clusterAuthMode: x509
 
 #operationProfiling:
 

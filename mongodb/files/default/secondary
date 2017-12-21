@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+AWS_KEY=$1
+AWS_SECRET=$2
+MONGODB_USERNAME=$3
+MONGODB_PASSWORD=$4
+
+./install ${AWS_KEY} ${AWS_SECRET} ${MONGODB_USERNAME} ${MONGODB_PASSWORD}
+
+mv /etc/mongod-custom.conf /etc/mongod.conf
+
+service mongod start
+
+mongo --version
