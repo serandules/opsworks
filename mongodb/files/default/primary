@@ -13,10 +13,14 @@ mv /etc/mongod-boostrap.conf /etc/mongod.conf
 
 mongo service start
 
+sleep 2
+
 mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME}', pwd: '${MONGODB_PASSWORD}', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}, {role: 'dbAdminAnyDatabase', db: 'admin'}, {role: 'readWriteAnyDatabase', db: 'admin'}, {role: 'clusterAdmin', db: 'admin'}]})"
 
 mv /etc/mongod-custom.conf /etc/mongod.conf
 
 mongo service restart
+
+sleep 2
 
 mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD} --eval "rs.initiate({_id : '${REPLICA_SET}', members: [{_id : 0, host: '${HOSTNAME}'}]})"

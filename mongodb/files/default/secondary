@@ -11,4 +11,6 @@ mv /etc/mongod-custom.conf /etc/mongod.conf
 
 service mongod start
 
+sleep 2
+
 mongo --version

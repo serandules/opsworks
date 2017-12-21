@@ -26,6 +26,11 @@ cookbook_file "/tmp/mongodb/secondary" do
   mode 0755
 end
 
+cookbook_file '/tmp/mongodb/copy-s3-file' do
+  source 'copy-s3-file'
+  mode 0755
+end
+
 Chef::Log.info("copying mongod-custom.conf")
 template "mongod-custom" do
   source "mongod-custom.erb"
