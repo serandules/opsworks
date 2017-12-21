@@ -4,6 +4,16 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+scripts_path = "/tmp/mongodb"
+
+directory scripts_path do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+  recursive true
+end
+
 cookbook_file "/tmp/mongodb/install" do
   source "install"
   mode 0755
