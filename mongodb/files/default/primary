@@ -6,10 +6,11 @@ AWS_KEY=$1
 AWS_SECRET=$2
 MONGODB_USERNAME=$3
 MONGODB_PASSWORD=$4
+REPLICA_SET="serandives"
 
 ./install "${AWS_KEY}" "${AWS_SECRET}" "${MONGODB_USERNAME}" "${MONGODB_PASSWORD}"
 
-mv /etc/mongod-boostrap.conf /etc/mongod.conf
+mv /etc/mongod-bootstrap.conf /etc/mongod.conf
 
 mongo service start
 
