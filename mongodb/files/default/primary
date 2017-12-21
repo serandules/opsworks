@@ -12,7 +12,7 @@ REPLICA_SET="serandives"
 
 mv /etc/mongod-bootstrap.conf /etc/mongod.conf
 
-mongo service start
+service mongod start
 
 sleep 2
 
@@ -20,7 +20,7 @@ mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME}', 
 
 mv /etc/mongod-custom.conf /etc/mongod.conf
 
-mongo service restart
+service mongod restart
 
 sleep 2
 
