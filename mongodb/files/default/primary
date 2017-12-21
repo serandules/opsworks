@@ -4,11 +4,11 @@ echo "initializing replica set"
 
 AWS_KEY=$1
 AWS_SECRET=$2
-MONGODB_USERNAME=$3
-MONGODB_PASSWORD=$4
+MONGODB_USERNAME_ADMIN=$3
+MONGODB_PASSWORD_ADMIN=$4
 REPLICA_SET="serandives"
 
-./install "${AWS_KEY}" "${AWS_SECRET}" "${MONGODB_USERNAME}" "${MONGODB_PASSWORD}"
+./install "${AWS_KEY}" "${AWS_SECRET}" "${MONGODB_USERNAME_ADMIN}" "${MONGODB_PASSWORD_ADMIN}"
 
 mv /etc/mongod-bootstrap.conf /etc/mongod.conf
 
@@ -16,7 +16,8 @@ service mongod start
 
 sleep 2
 
-mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME}', pwd: '${MONGODB_PASSWORD}', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}, {role: 'dbAdminAnyDatabase', db: 'admin'}, {role: 'readWriteAnyDatabase', db: 'admin'}, {role: 'clusterAdmin', db: 'admin'}]})"
+mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME_ADMIN}', pwd: '${MONGODB_PASSWORD_ADMIN}', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}, {role: 'dbAdminAnyDatabase', db: 'admin'}, {role: 'readWriteAnyDatabase', db: 'admin'}, {role: 'clusterAdmin', db: 'admin'}]})"
+mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME_SERAND}', pwd: '${MONGODB_PASSWORD_SERAND}', roles: [{role: 'readWrite', db: 'serandives'}]})"
 
 mv /etc/mongod-custom.conf /etc/mongod.conf
 
@@ -24,4 +25,4 @@ service mongod restart
 
 sleep 2
 
-mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD} --eval "rs.initiate({_id : '${REPLICA_SET}', members: [{_id : 0, host: '${HOSTNAME}'}]})"
+mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME_ADMIN} -p ${MONGODB_PASSWORD_ADMIN} --eval "rs.initiate({_id : '${REPLICA_SET}', members: [{_id : 0, host: '${HOSTNAME}'}]})"

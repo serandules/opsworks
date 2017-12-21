@@ -45,8 +45,8 @@ search(:aws_opsworks_app).each do |app|
   next if type != 'server'
   aws_key = app['environment']['AWS_KEY']
   aws_secret = app['environment']['AWS_SECRET']
-  username = app['environment']['MONGODB_USERNAME']
-  password = app['environment']['MONGODB_PASSWORD']
+  username = app['environment']['MONGODB_USERNAME_ADMIN']
+  password = app['environment']['MONGODB_PASSWORD_ADMIN']
 
   execute "secondary" do
     user "root"

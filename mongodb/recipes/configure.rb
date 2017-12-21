@@ -29,8 +29,8 @@ search(:aws_opsworks_instance).each do |instance|
     type = app['environment']['TYPE']
     next if type != 'server'
 
-    username = app['environment']['MONGODB_USERNAME']
-    password = app['environment']['MONGODB_PASSWORD']
+    username = app['environment']['MONGODB_USERNAME_ADMIN']
+    password = app['environment']['MONGODB_PASSWORD_ADMIN']
 
     execute "configure" do
       user "root"
