@@ -17,7 +17,7 @@ service mongod start
 sleep 2
 
 mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME_ADMIN}', pwd: '${MONGODB_PASSWORD_ADMIN}', roles: [{role: 'userAdminAnyDatabase', db: 'admin'}, {role: 'dbAdminAnyDatabase', db: 'admin'}, {role: 'readWriteAnyDatabase', db: 'admin'}, {role: 'clusterAdmin', db: 'admin'}]})"
-mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME_SERAND}', pwd: '${MONGODB_PASSWORD_SERAND}', roles: [{role: 'readWrite', db: 'serandives'}]})"
+mongo --eval "db.getSiblingDB('admin').createUser({user: '${MONGODB_USERNAME_APPS}', pwd: '${MONGODB_PASSWORD_APPS}', roles: [{role: 'readWrite', db: 'serandives'}]})"
 
 mv /etc/mongod-custom.conf /etc/mongod.conf
 
