@@ -4,6 +4,8 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
+include_recipe 'nodejs'
+
 scripts_path = "/tmp/mongodb"
 
 directory scripts_path do
