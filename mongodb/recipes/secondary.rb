@@ -42,7 +42,7 @@ end
 
 search(:aws_opsworks_app).each do |app|
   type = app['environment']['TYPE']
-  next if type == 'server'
+  next if type != 'server'
   aws_key = app['environment']['AWS_KEY']
   aws_secret = app['environment']['AWS_SECRET']
   username = app['environment']['MONGODB_USERNAME']

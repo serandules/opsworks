@@ -27,7 +27,7 @@ search(:aws_opsworks_instance).each do |instance|
 
   search(:aws_opsworks_app).each do |app|
     type = app['environment']['TYPE']
-    next if type == 'server'
+    next if type != 'server'
 
     username = app['environment']['MONGODB_USERNAME']
     password = app['environment']['MONGODB_PASSWORD']
