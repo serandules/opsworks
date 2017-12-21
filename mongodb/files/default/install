@@ -17,8 +17,8 @@ apt-get install -y mongodb-org
 
 npm install aws-sdk@2.173.0
 
-node copy-s3-file ${AWS_KEY} ${AWS_SECRET} ${BUCKET} "ssl/ca/serandivesCA.crt" "/etc/ssl/serandivesCA.crt"
-node copy-s3-file ${AWS_KEY} ${AWS_SECRET} ${BUCKET} "ssl/${HOSTNAME}/${HOSTNAME}.pem" "/etc/ssl/server.pem"
+node copy-s3-file "${AWS_KEY}" "${AWS_SECRET}" "${BUCKET}" "ssl/ca/serandivesCA.crt" "/etc/ssl/serandivesCA.crt"
+node copy-s3-file "${AWS_KEY}" "${AWS_SECRET}" "${BUCKET}" "ssl/${HOSTNAME}/${HOSTNAME}.pem" "/etc/ssl/server.pem"
 
 chown -R mongodb:mongodb /etc/ssl/serandivesCA.crt
 chown -R mongodb:mongodb /etc/ssl/server.pem

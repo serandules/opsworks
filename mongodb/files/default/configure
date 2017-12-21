@@ -6,7 +6,7 @@ MONGODB_USERNAME=$1
 MONGODB_PASSWORD=$2
 HOST=$3
 STATUS=$4
-MASTER=`mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD} --quiet --eval 'db.isMaster().ismaster'`
+MASTER=`mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u "${MONGODB_USERNAME}" -p "${MONGODB_PASSWORD}" --quiet --eval 'db.isMaster().ismaster'`
 
 echo ${HOST}
 echo ${STATUS}
@@ -15,10 +15,10 @@ if [ "$MASTER" == "true" ]; then
     echo "configuration mongodb primary node"
     if [ "$STATUS" == "online" ]; then
       echo "adding ${HOST} into the replica set"
-      mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD} --eval "rs.add('$HOST')"
+      mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u "${MONGODB_USERNAME}" -p "${MONGODB_PASSWORD}" --eval "rs.add('$HOST')"
     elif [ "$STATUS" == "stopped" ]; then
       echo "removing ${HOST} from the replica set"
-      mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD} --eval "rs.remove('$HOST')"
+      mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u "${MONGODB_USERNAME}" -p "${MONGODB_PASSWORD}" --eval "rs.remove('$HOST')"
     fi
 else
     echo "skipping mongodb secondary node"

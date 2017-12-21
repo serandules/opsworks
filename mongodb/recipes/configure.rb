@@ -35,7 +35,7 @@ search(:aws_opsworks_instance).each do |instance|
     execute "configure" do
       user "root"
       cwd "/tmp/mongodb"
-      command "./configure #{username} #{password} #{hostname} #{status}"
+      command "./configure \"#{username}\" \"#{password}\" \"#{hostname}\" \"#{status}\""
     end
   end
 end
