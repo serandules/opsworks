@@ -7,7 +7,7 @@ APP_SOURCE_REVISION=$4
 
 # loading releases
 npm install async@2.0.0-rc.6
-npm install mongoose@4.5.9
+npm install mongoose@4.*
 
 RELEASES=`node release-find`
 if [ $? -ne 0 ]; then
