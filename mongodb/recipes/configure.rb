@@ -27,7 +27,6 @@ search(:aws_opsworks_instance).each do |instance|
 
   search(:aws_opsworks_app).each do |app|
     type = app['environment']['TYPE']
-    Chef::Log.info("before running configure script")
     next if type != 'server'
     Chef::Log.info("running configure script")
     username = app['environment']['MONGODB_USERNAME_ADMIN']
@@ -37,7 +36,7 @@ search(:aws_opsworks_instance).each do |instance|
       user "root"
       cwd "/tmp/mongodb"
       command "./configure"
+      live_stream true
     end
-    Chef::Log.info("after running configure script")
   end
 end
