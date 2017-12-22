@@ -55,12 +55,14 @@ search(:aws_opsworks_app).each do |app|
 
   aws_key = app['environment']['AWS_KEY']
   aws_secret = app['environment']['AWS_SECRET']
-  username = app['environment']['MONGODB_USERNAME_ADMIN']
-  password = app['environment']['MONGODB_PASSWORD_ADMIN']
+  admin_username = app['environment']['MONGODB_USERNAME_ADMIN']
+  admin_password = app['environment']['MONGODB_PASSWORD_ADMIN']
+  apps_username = app['environment']['MONGODB_USERNAME_APPS']
+  apps_password = app['environment']['MONGODB_PASSWORD_APPS']
 
   execute "primary" do
     user "root"
     cwd "/tmp/mongodb"
-    command "./primary \"#{aws_key}\" \"#{aws_secret}\" \"#{username}\" \"#{password}\""
+    command "./primary \"#{aws_key}\" \"#{aws_secret}\" \"#{admin_username}\" \"#{admin_password}\" \"#{apps_username}\" \"#{apps_password}\""
   end
 end
