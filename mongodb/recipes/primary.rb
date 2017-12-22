@@ -61,6 +61,6 @@ search(:aws_opsworks_app).each do |app|
   execute "primary" do
     user "root"
     cwd "/tmp/mongodb"
-    command "./primary \"#{aws_key}\" \"#{aws_secret}\" \"#{username}\" \"#{password}\""
+    command "./primary '#{aws_key}' '#{aws_secret}' '#{username}' '#{password}'"
   end
 end
