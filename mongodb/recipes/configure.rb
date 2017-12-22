@@ -27,8 +27,9 @@ search(:aws_opsworks_instance).each do |instance|
 
   search(:aws_opsworks_app).each do |app|
     type = app['environment']['TYPE']
+    Chef::Log.info("before running configure script")
     next if type != 'server'
-
+    Chef::Log.info("running configure script")
     username = app['environment']['MONGODB_USERNAME_ADMIN']
     password = app['environment']['MONGODB_PASSWORD_ADMIN']
 
@@ -37,5 +38,6 @@ search(:aws_opsworks_instance).each do |instance|
       cwd "/tmp/mongodb"
       command "./configure"
     end
+    Chef::Log.info("after running configure script")
   end
 end
