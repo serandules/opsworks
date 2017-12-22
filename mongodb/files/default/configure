@@ -2,6 +2,8 @@
 
 echo "configuring replica set"
 
+mkdir /home/ubuntu/it-started
+
 MONGODB_USERNAME_ADMIN=$1
 MONGODB_PASSWORD_ADMIN=$2
 HOST=$3
@@ -23,3 +25,5 @@ if [ "$MASTER" == "true" ]; then
 else
     echo "skipping mongodb secondary node"
 fi
+
+mkdir /home/ubuntu/it-ended
