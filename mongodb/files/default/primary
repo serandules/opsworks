@@ -25,4 +25,4 @@ service mongod restart
 
 sleep 2
 
-mongo admin --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME_ADMIN} -p ${MONGODB_PASSWORD_ADMIN} --eval "rs.initiate({_id : '${REPLICA_SET}', members: [{_id : 0, host: '${HOSTNAME}'}]})"
+mongo admin --host ${HOSTNAME} --ssl --sslCAFile /etc/ssl/serandivesCA.crt --sslPEMKeyFile /etc/ssl/server.pem --sslAllowInvalidHostnames -u ${MONGODB_USERNAME_ADMIN} -p ${MONGODB_PASSWORD_ADMIN} --eval "rs.initiate({_id : '${REPLICA_SET}', members: [{_id : 0, host: '${HOSTNAME}'}]})"
