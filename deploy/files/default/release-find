@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var util = require('util');
 var async = require('async');
+var fs = require('fs');
 var mongoose = require('mongoose');
 var models = require('./models');
 

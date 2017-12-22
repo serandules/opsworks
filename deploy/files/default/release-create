@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var mongoose = require('mongoose');
+var fs = require('fs');
 var models = require('./models');
 
 var name = process.argv[2];
