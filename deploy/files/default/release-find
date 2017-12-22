@@ -4,12 +4,24 @@ var async = require('async');
 var mongoose = require('mongoose');
 var models = require('./models');
 
-var MONGODB_URI = process.env.MONGODB_URI;
-
 var clientPrefix = 'CLIENT_';
 var indexPrefix = 'INDEX_';
 
-mongoose.connect(MONGODB_URI);
+var certPath = process.env.CERT_SERANDIVES;
+var pemPath = process.env.PEM_SERVER;
+var mongourl = process.env.MONGODB_URI;
+
+var ca = certPath ? fs.readFileSync(certPath) : null;
+var pem = pemPath ? fs.readFileSync(pemPath) : null;
+
+mongoose.connect(mongourl, {
+    useMongoClient: true,
+    authSource: 'admin',
+    ssl: !!pem,
+    sslCA: ca,
+    sslCert: pem,
+    sslKey: pem
+});
 
 var find = function (name, done) {
     models.Release.find({

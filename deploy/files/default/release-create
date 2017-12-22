@@ -2,13 +2,25 @@
 var mongoose = require('mongoose');
 var models = require('./models');
 
-var MONGODB_URI = process.env.MONGODB_URI;
-
 var name = process.argv[2];
 var version = process.argv[3];
 var revision = process.argv[4];
 
-mongoose.connect(MONGODB_URI);
+var certPath = process.env.CERT_SERANDIVES;
+var pemPath = process.env.PEM_SERVER;
+var mongourl = process.env.MONGODB_URI;
+
+var ca = certPath ? fs.readFileSync(certPath) : null;
+var pem = pemPath ? fs.readFileSync(pemPath) : null;
+
+mongoose.connect(mongourl, {
+    useMongoClient: true,
+    authSource: 'admin',
+    ssl: !!pem,
+    sslCA: ca,
+    sslCert: pem,
+    sslKey: pem
+});
 
 models.Release.create({
     type: 'serandomps',
