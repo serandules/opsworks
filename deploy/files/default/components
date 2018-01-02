@@ -28,7 +28,8 @@ git checkout ${APP_SOURCE_REVISION}
 
 VERSION=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
 VERSION=`date +%s`
-PREFIX="/$APP_NAME/$VERSION/"
+LOCATION=${APP_NAME}/${VERSION}
+PREFIX=/${LOCATION}/
 
 component build --out ${APP_NAME} --name index --prefix ${PREFIX}
 
@@ -40,7 +41,7 @@ npm install node-uuid@1.4.7
 npm install mime-types@2.1.11
 npm install mongoose@4.*
 
-node components-uploader "$APP_PATH/current/$APP_NAME" ${PREFIX}
+node components-uploader "$APP_PATH/current/$APP_NAME" ${LOCATION}
 node release-create ${APP_NAME} ${VERSION} ${APP_SOURCE_REVISION}
 
 # pm2 save
