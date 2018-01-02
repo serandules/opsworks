@@ -28,7 +28,7 @@ git checkout ${APP_SOURCE_REVISION}
 
 VERSION=${APP_SOURCE_REVISION} # `git rev-parse HEAD`
 VERSION=`date +%s`
-PREFIX="$APP_NAME/$VERSION"
+PREFIX="/$APP_NAME/$VERSION/"
 
 component build --out ${APP_NAME} --name index --prefix ${PREFIX}
 
