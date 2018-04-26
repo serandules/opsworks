@@ -36,10 +36,10 @@ component build --out ${APP_NAME} --name index --prefix ${PREFIX}
 cd ${CURRENT}
 
 npm install aws-sdk@2.4.5
-npm install async@2.0.0-rc.6
+npm install async@2.6.0
 npm install node-uuid@1.4.7
 npm install mime-types@2.1.11
-npm install mongoose@4.*
+npm install mongoose@5.*
 
 node components-uploader "$APP_PATH/current/$APP_NAME" ${LOCATION}
 node release-create ${APP_NAME} ${VERSION} ${APP_SOURCE_REVISION}

@@ -8,34 +8,24 @@ var models = require('./models');
 var clientPrefix = 'CLIENT_';
 var indexPrefix = 'INDEX_';
 
-var certPath = process.env.CERT_SERANDIVES;
-var pemPath = process.env.PEM_SERVER;
 var mongourl = process.env.MONGODB_URI;
 
-var ca = certPath ? fs.readFileSync(certPath) : null;
-var pem = pemPath ? fs.readFileSync(pemPath) : null;
-
 mongoose.connect(mongourl, {
-    useMongoClient: true,
     authSource: 'admin',
-    ssl: !!pem,
-    sslCA: ca,
-    sslCert: pem,
-    sslKey: pem
+    ssl: true
 });
 
 var find = function (name, done) {
-    models.Release.find({
+    models.Release.findOne({
         type: 'serandomps',
         name: name
-    }).limit(1).sort({_id: -1}).exec(function (err, releases) {
+    }).sort({_id: -1}).exec(function (err, release) {
         if (err) {
             return done(err);
         }
-        if (!releases.length) {
+        if (!release) {
             return done(new Error(util.format('cannot find a release for client: %s', name)));
         }
-        var release = releases[0];
         done(null, util.format('export %s%s=%s', indexPrefix, release.name.toUpperCase(), release.version));
     });
 };
